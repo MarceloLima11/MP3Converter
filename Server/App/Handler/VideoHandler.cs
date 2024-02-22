@@ -1,4 +1,5 @@
 ﻿using YoutubeExplode;
+using YoutubeExplode.Videos.Streams;
 
 namespace App.Handler
 {
@@ -7,11 +8,20 @@ namespace App.Handler
         public VideoHandler()
         {}
 
-        public async void GetVideo(string videoLink)
+        public async Task GetVideo(string videoLink)
         {
             var youtube = new YoutubeClient();
 
-            var video = await youtube.Videos.GetAsync(videoLink);
+            var streamManifest = await youtube.Videos.Streams.GetManifestAsync(videoLink);
+            var audio = streamManifest.GetAudioOnlyStreams().GetWithHighestBitrate();
+            try
+            {
+                if(audio is null) {
+                    throw new Exception("MESSAGE");
+                }
+            }
+            catch 
+            { }
         }
     }
 }
