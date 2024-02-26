@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using App.Handlers;
+using Microsoft.AspNetCore.Mvc;
 
 namespace Api.Controllers
 {
@@ -6,12 +7,21 @@ namespace Api.Controllers
     [ApiController]
     public class ConverterController : ControllerBase
     {
+        private readonly VideoHandler _videoHandler;
+        public ConverterController(VideoHandler videoHandler)
+        { _videoHandler = videoHandler; }
+
         [HttpGet]
-        public IActionResult ConverterVideo(string videoLink)
+        public async Task<IActionResult> ConverterVideo(string videoLink)
         {
             try
             {
-                return Ok();
+                var memoryStream = await _videoHandler.GetAudioStream(videoLink);
+
+                return new FileStreamResult(memoryStream, "audio/mp3")
+                {
+                    FileDownloadName = "audio.mp3"
+                };
             }
             catch (Exception err) 
             { return BadRequest(err.Message); }
