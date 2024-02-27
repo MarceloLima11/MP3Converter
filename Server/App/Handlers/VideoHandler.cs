@@ -1,4 +1,5 @@
-﻿using YoutubeExplode;
+﻿using System.Diagnostics;
+using YoutubeExplode;
 using YoutubeExplode.Videos.Streams;
 
 namespace App.Handlers
@@ -11,13 +12,16 @@ namespace App.Handlers
 
         public async Task<MemoryStream> GetAudioStream(string videoLink)
         {
-            var youtube = new YoutubeClient();
+            var stopwatch = Stopwatch.StartNew();
 
-            var streamManifest = await youtube.Videos.Streams.GetManifestAsync(videoLink);
-            var audioStream = streamManifest.GetAudioOnlyStreams().GetWithHighestBitrate();
+            var youtube = new YoutubeClient();
             try
             {
-                if(audioStream is null) {
+                var streamManifest = await youtube.Videos.Streams.GetManifestAsync(videoLink);
+                var audioStream = streamManifest.GetAudioOnlyStreams().GetWithHighestBitrate();
+
+                if (audioStream is null)
+                {
                     throw new Exception("Audio stream not found");
                 }
 
@@ -25,10 +29,16 @@ namespace App.Handlers
                 var audioBytes = await httpClient.GetByteArrayAsync(audioStream.Url);
 
                 var audioMemoryStream = new MemoryStream(audioBytes);
+
+                stopwatch.Stop();
+                Debug.WriteLine($"TEMPO CORRIDO: {stopwatch.Elapsed}");
                 return audioMemoryStream;
             }
-            catch 
-            { throw; }
+            catch (Exception ex)
+            {
+                Debug.WriteLine(ex, "Erro ao obter stream de áudio");
+                throw;
+            }
         }
     }
 }
