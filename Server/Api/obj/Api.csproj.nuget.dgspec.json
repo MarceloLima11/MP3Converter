@@ -125,13 +125,13 @@
         "net8.0": {
           "targetAlias": "net8.0",
           "dependencies": {
-            "Microsoft.Extensions.Http": {
-              "target": "Package",
-              "version": "[9.0.0-preview.1.24080.9, )"
-            },
             "YoutubeExplode": {
               "target": "Package",
-              "version": "[6.3.12, )"
+              "version": "[6.3.13, )"
+            },
+            "YoutubeExplode.Converter": {
+              "target": "Package",
+              "version": "[6.3.13, )"
             }
           },
           "imports": [

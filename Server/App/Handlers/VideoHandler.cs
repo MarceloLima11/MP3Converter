@@ -1,44 +1,39 @@
-﻿using System.Diagnostics;
+﻿using Common;
 using YoutubeExplode;
+using YoutubeExplode.Converter;
 using YoutubeExplode.Videos.Streams;
 
 namespace App.Handlers
 {
     public class VideoHandler
     {
-        private readonly IHttpClientFactory _httpClientFactory;
-        public VideoHandler(IHttpClientFactory httpClientFactory)
-        { _httpClientFactory = httpClientFactory; }
+        public VideoHandler()
+        { }
 
-        public async Task<MemoryStream> GetAudioStream(string videoLink)
+        public async Task<string> GetAudioStream(string videoLink)
         {
-            var stopwatch = Stopwatch.StartNew();
-
             var youtube = new YoutubeClient();
             try
             {
+                var videoInfo = await youtube.Videos.GetAsync(videoLink);
                 var streamManifest = await youtube.Videos.Streams.GetManifestAsync(videoLink);
-                var audioStream = streamManifest.GetAudioOnlyStreams().GetWithHighestBitrate();
+                var audioStream = streamManifest.GetAudioStreams().GetWithHighestBitrate();
 
-                if (audioStream is null)
-                {
+                if (audioStream is null){
                     throw new Exception("Audio stream not found");
                 }
 
-                using var httpClient = _httpClientFactory.CreateClient();
-                var audioBytes = await httpClient.GetByteArrayAsync(audioStream.Url);
+                var streamInfos = new IStreamInfo[] { audioStream };
+                var conversionRequest = new ConversionRequestBuilder($"{Consts.SAVE_FILES_PATH}{videoInfo.Title}.mp3")
+                    .SetPreset(ConversionPreset.UltraFast)
+                    .SetFFmpegPath(Consts.FFMPEG_PATH)
+                    .Build();
 
-                var audioMemoryStream = new MemoryStream(audioBytes);
-
-                stopwatch.Stop();
-                Debug.WriteLine($"TEMPO CORRIDO: {stopwatch.Elapsed}");
-                return audioMemoryStream;
+                    await youtube.Videos.DownloadAsync(streamInfos, conversionRequest);
+                    return conversionRequest.OutputFilePath;
             }
-            catch (Exception ex)
-            {
-                Debug.WriteLine(ex, "Erro ao obter stream de áudio");
-                throw;
-            }
+            catch
+            { throw; }
         }
     }
 }

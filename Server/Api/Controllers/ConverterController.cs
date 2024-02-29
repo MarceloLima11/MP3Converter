@@ -16,12 +16,12 @@ namespace Api.Controllers
         {
             try
             {
-                var memoryStream = await _videoHandler.GetAudioStream(videoLink);
+                var filePath = await _videoHandler.GetAudioStream(videoLink);
 
-                return new FileStreamResult(memoryStream, "audio/mp3")
-                {
-                    FileDownloadName = "audio.mp3"
-                };
+                var fileBytes = await System.IO.File.ReadAllBytesAsync(filePath);
+                var fileStream = new MemoryStream(fileBytes);
+
+                return File(fileStream, "audio/mpeg", Path.GetFileName(filePath));
             }
             catch (Exception err) 
             { return BadRequest(err.Message); }
