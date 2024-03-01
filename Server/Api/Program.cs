@@ -7,6 +7,7 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddControllers();
 
 builder.Services.AddTransient<VideoHandler>();
+//builder.Services.AddScoped<VideoCleaner>();
 builder.Services.AddHttpClient();
 
 var app = builder.Build();
