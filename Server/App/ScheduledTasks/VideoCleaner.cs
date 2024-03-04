@@ -18,11 +18,8 @@ namespace App.ScheduledTasks
                 {
                     var fileInfo = new FileInfo(filePath);
 
-                    if (DateTime.Now - fileInfo.CreationTime > TimeSpan.FromMinutes(1))
-                    {
+                    if (DateTime.Now - fileInfo.CreationTime > TimeSpan.FromHours(1))
                         File.Delete(filePath);
-                        Debug.WriteLine($"Arquivo excluído: {filePath}");
-                    }
                 }
             }
             catch 

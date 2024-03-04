@@ -1,14 +1,14 @@
-using App.Handlers;
+using App.Extensions;
+using System.Diagnostics;
 
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddControllers();
-
-builder.Services.AddTransient<VideoHandler>();
-//builder.Services.AddScoped<VideoCleaner>();
 builder.Services.AddHttpClient();
+
+builder.Services.AddAppLayer();
 
 var app = builder.Build();
 
