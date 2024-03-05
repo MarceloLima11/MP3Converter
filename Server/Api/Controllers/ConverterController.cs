@@ -1,6 +1,5 @@
 ﻿using App.Handlers;
 using Microsoft.AspNetCore.Mvc;
-using System.Diagnostics;
 
 namespace Api.Controllers
 {
