@@ -9,7 +9,7 @@ function Header() {
                 <img src={logo} alt="Groove Grab logo" />
             </a>
 
-            <a href="">Contact me</a>
+            <a className="contact" href="https://api.whatsapp.com/send?0=pt_BR&phone=13997372895">Contact me</a>
         </header>
     );
 }

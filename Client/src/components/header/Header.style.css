@@ -1,11 +1,19 @@
 header {
     height: 120px;
-
     background-color: #221F1F;
     display: flex;
     align-items: center;
     padding: 0 226px;
+    justify-content: space-between;
+}
 
+header .contact {
+    font-size: 30px;
+    color: #606060;
+}
+
+header .contact {
+    text-decoration: none;
 }
 
 header img {

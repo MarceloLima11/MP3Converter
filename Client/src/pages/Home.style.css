@@ -1,3 +1,9 @@
 h1 {
     color: red;
 }
+
+main .converter_container {
+    height: 359px;
+    background-color: #F7F7F7;
+    width: 100%;
+}
