@@ -1,9 +1,52 @@
-h1 {
-    color: red;
-}
-
 main .converter_container {
     height: 359px;
     background-color: #F7F7F7;
     width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.converter_container h1 {
+    font-size: 40px;
+    color: #433F3E;
+    font-weight: 600;
+    margin: 0 0 10px 0;
+}
+
+.converter_container span {
+    color: #F79B0B;
+}
+
+.converter_container p {
+    font-size: 20px;
+    color: #738292;
+    margin: 0 0 19px 0;
+    font-weight: 600;
+}
+
+.converter_container input {
+    width: 710px;
+    padding: 17px 12px;
+    font-size: 20px;
+    border-radius: 6px;
+    border: 0;
+}
+
+.converter_container input:focus {
+    outline: 0;
+}
+
+.converter_container button {
+    background-color: #F79B0B;
+    height: 48px;
+    width: 41px;
+    background-image: url('../assets/arrow.svg');
+    background-size: 30px;
+    background-repeat: no-repeat;
+    background-position: center;
+    border-radius: 6px;
+    border: none;
+    cursor: pointer;
 }
