@@ -1,3 +1,5 @@
+/* converter */
+
 main .converter_container {
     height: 359px;
     background-color: #F7F7F7;
@@ -26,27 +28,58 @@ main .converter_container {
     font-weight: 600;
 }
 
-.converter_container input {
+.input_with_button {
+    position: relative;
+    display: inline-block;
+}
+
+.input_with_button input {
     width: 710px;
-    padding: 17px 12px;
-    font-size: 20px;
+    padding: 12px 12px;
+    font-size: 18px;
     border-radius: 6px;
     border: 0;
 }
 
-.converter_container input:focus {
+.input_with_button input:focus {
     outline: 0;
 }
 
-.converter_container button {
+.input_with_button button {
+    position: absolute;
     background-color: #F79B0B;
-    height: 48px;
+    height: 45px;
     width: 41px;
     background-image: url('../assets/arrow.svg');
     background-size: 30px;
     background-repeat: no-repeat;
     background-position: center;
-    border-radius: 6px;
     border: none;
     cursor: pointer;
+    right: 0;
+    top: 0;
+    bottom: 0;
+
+    margin-left: -1px;
+    border-radius: 0 5px 5px 0;
+}
+
+
+/* steps */
+.steps_container {
+    height: 580px;
+    background-color: #ffffff;
+    /* padding: 91px 0 0 0; */
+}
+
+.steps_container h2 {
+    font-size: 30px;
+    font-weight: 600;
+    color: #66605F;
+}
+
+.steps_container div img {
+    background-repeat: space;
+    height: 300px;
+    width: 100%;
 }

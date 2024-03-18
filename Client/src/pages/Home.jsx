@@ -1,3 +1,5 @@
+import stars from '../assets/bg_stars.png';
+
 import Header from '../components/header/Header';
 import './Home.style.css'
 
@@ -10,8 +12,16 @@ function Home() {
 
                 <p>Get and download YouTube videos for free</p>
 
-                <input type='text' placeholder='https://www.youtube.com/watch?v=aTMtiakjpks' required />
-                <button></button>
+                <div className='input_with_button'>
+                    <input type='text' placeholder='https://www.youtube.com/watch?v=aTMtiakjpks' required />
+                    <button></button>
+                </div>
+            </div>
+
+
+            <div className='steps_container'>
+                <h2>How to download YouTube video online?</h2>
+                <div><img src={stars} alt="" /></div>
             </div>
         </main>
     );
