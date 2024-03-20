@@ -1,5 +1,5 @@
 header {
-    height: 120px;
+    height: 100px;
     background-color: #221F1F;
     display: flex;
     align-items: center;
@@ -17,6 +17,6 @@ header .contact {
 }
 
 header img {
-    height: 56px;
-    width: 396px;
+    height: 40px;
+    width: 280px;
 }
