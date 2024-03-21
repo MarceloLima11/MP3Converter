@@ -91,6 +91,7 @@ main .converter_container {
     justify-content: center;
     gap: 100px;
     align-items: center;
+    margin-bottom: 20px;
 }
 
 .cards_container .card {
@@ -141,10 +142,19 @@ main .converter_container {
 
 .links li {
     display: inline-block;
-    margin-right: 45px;
+    margin-right: 23px;
 }
 
 .links li a {
     text-decoration: none;
     color: black;
+}
+
+.links li:last-child {
+    margin-right: 0;
+}
+
+.links li.sep {
+    color: #F79B0B;
+    font-size: 20px;
 }

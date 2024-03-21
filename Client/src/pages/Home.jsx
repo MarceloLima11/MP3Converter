@@ -52,9 +52,9 @@ function Home() {
                 <img src={logo} />
                 <ul className='links'>
                     <li><a href="#">Privacy Policy</a></li>
-
+                    <li className='sep'>|</li>
                     <li><a href="#">Terms of Use</a></li>
-
+                    <li className='sep'>|</li>
                     <li><a href="#">Contact</a></li>
                 </ul>
             </footer>

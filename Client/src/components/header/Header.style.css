@@ -3,7 +3,7 @@ header {
     background-color: #221F1F;
     display: flex;
     align-items: center;
-    padding: 0 226px;
+    padding: 0 14%;
     justify-content: space-between;
 }
 
@@ -19,4 +19,18 @@ header .contact {
 header img {
     height: 40px;
     width: 280px;
+}
+
+@media (max-width: 1000px) {
+    header {
+        padding: 0;
+    }
+
+    header a {
+        margin: 0 auto;
+    }
+
+    .contact {
+        display: none;
+    }
 }
