@@ -94,11 +94,11 @@ main .converter_container {
     justify-content: center;
     gap: 100px;
     align-items: center;
-    margin-bottom: 20px;
+    margin-bottom: 40px;
 }
 
 .cards_container .card {
-    width: 400px;
+    width: 350px;
     height: 350px;
     border-radius: 10px;
     border: 3px solid #F79B0B;
@@ -130,7 +130,6 @@ main .converter_container {
     height: 150px;
     background-color: #D9D9D9;
     text-align: center;
-
 }
 
 .footer img {
@@ -162,8 +161,50 @@ main .converter_container {
     font-size: 20px;
 }
 
+@media screen and (max-width: 1300px) {
+    .steps_container .cards_container {
+        gap: 30px
+    }
+
+    .cards_container .card {
+        width: 280px;
+    }
+}
+
+@media screen and (max-width: 1000px) {
+    .cards_container .card {
+        width: 210px;
+    }
+}
+
 @media screen and (max-width: 768px) {
+    .steps_container {
+        height: 100%;
+    }
+
+    .steps_container h2 {
+        margin: 30px 10px;
+        text-align: center;
+    }
+
+    .steps_container .cards_container {
+        flex-direction: column;
+        height: 100%;
+    }
+
+    .cards_container .card {
+        width: 70%;
+
+        text-align: left;
+    }
+
     .converter_container input {
         width: 80%;
+    }
+
+    .footer {}
+
+    .links li {
+        margin-right: 3%;
     }
 }
