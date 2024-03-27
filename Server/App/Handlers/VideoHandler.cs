@@ -1,4 +1,5 @@
-﻿using Common;
+﻿using App.DTOs;
+using Common;
 using YoutubeExplode;
 using YoutubeExplode.Converter;
 using YoutubeExplode.Videos.Streams;
@@ -9,6 +10,21 @@ namespace App.Handlers
     {
         public VideoHandler()
         { }
+
+        public async Task<VideoInfoRecord> GetVideoInfo(string link)
+        {
+            var youtube = new YoutubeClient();
+
+            try
+            {
+                var video = await youtube.Videos.GetAsync(link);
+
+                var videoInfo = new VideoInfoRecord(video.Title, video.Thumbnails.First().Url);
+                return videoInfo;
+            }
+            catch
+            { throw; }
+        }
 
         public async Task<string> GetAudioStream(string videoLink)
         {

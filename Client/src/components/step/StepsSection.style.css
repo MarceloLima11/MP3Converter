@@ -1,0 +1,93 @@
+/* steps */
+.steps_container {
+    height: 580px;
+    background-color: #ffffff;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.steps_container h2 {
+    font-size: 30px;
+    font-weight: 500;
+    color: #66605F;
+    margin-bottom: 100px;
+}
+
+.steps_container .cards_container {
+    background-image: url(../assets/bg_stars.svg);
+    background-position: center;
+    height: 300px;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    gap: 100px;
+    align-items: center;
+    margin-bottom: 40px;
+}
+
+.cards_container .card {
+    width: 350px;
+    height: 350px;
+    border-radius: 10px;
+    border: 3px solid #F79B0B;
+    background-color: #ffffff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.card h3 {
+    font-size: 24px;
+    text-transform: uppercase;
+    color: #5E5E5E;
+    margin: 0;
+}
+
+.card p {
+    color: #878787;
+    font-size: 14px;
+    width: 70%;
+    text-align: center;
+}
+
+@media screen and (max-width: 1300px) {
+    .steps_container .cards_container {
+        gap: 30px
+    }
+
+    .cards_container .card {
+        width: 280px;
+    }
+}
+
+@media screen and (max-width: 1000px) {
+    .cards_container .card {
+        width: 210px;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .steps_container {
+        height: 100%;
+    }
+
+    .steps_container h2 {
+        margin: 30px 10px;
+        text-align: center;
+    }
+
+    .steps_container .cards_container {
+        flex-direction: column;
+        height: 100%;
+    }
+
+    .cards_container .card {
+        width: 70%;
+
+        text-align: left;
+    }
+}

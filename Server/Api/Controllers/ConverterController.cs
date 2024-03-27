@@ -11,7 +11,7 @@ namespace Api.Controllers
         public ConverterController(VideoHandler videoHandler)
         { _videoHandler = videoHandler; }
 
-        [HttpGet]
+        [HttpGet()]
         public async Task<IActionResult> ConverterVideo(string videoLink)
         {
             try
