@@ -1,5 +1,4 @@
 using App.Extensions;
-using System.Diagnostics;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -7,6 +6,8 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddControllers();
 builder.Services.AddHttpClient();
+
+builder.Services.AddCors(x => x.AddPolicy("myCorsPolicy", opt => opt.AllowAnyOrigin()));
 
 builder.Services.AddAppLayer();
 
@@ -18,6 +19,7 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
+app.UseCors("myCorsPolicy");
 app.MapControllers();
 app.UseHttpsRedirection();
 
