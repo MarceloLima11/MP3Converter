@@ -7,13 +7,16 @@ function ConverterSection() {
     const [loading, setLoading] = useState(false);
     const [videoUrl, setVideoUrl] = useState('');
     const [data, setData] = useState({});
+    const [err, setErr] = useState(null);
 
     const handleVideoInfo = async () => {
         setLoading(true);
         try {
+            setErr(null);
             setData(await apiService.getVideoInfo(videoUrl));
-        } catch (error) {
-            console.error('Erro ao converter:', error);
+        } catch (err) {
+            setData({});
+            setErr(err.response.data);
         }
         setLoading(false);
     }
@@ -32,10 +35,18 @@ function ConverterSection() {
                     placeholder='https://www.youtube.com/watch?v=zXHvpBd3qNc'
                     required />
                 <button onClick={handleVideoInfo} disabled={loading}></button>
+
             </div>
 
-            {data.name && <p>{data.name}</p>}
-            {data.name && <img src={data.thumb}></img>}
+            {data.name && data.thumb &&
+                (
+                    <div id='videoInfo'><img src={data.thumb}></img>
+                        <div>
+                            <p>{data.name}</p>
+                        </div>
+                    </div>
+                )}
+            {err && <div id="error"><b>{err}</b></div>}
         </div>
     );
 }

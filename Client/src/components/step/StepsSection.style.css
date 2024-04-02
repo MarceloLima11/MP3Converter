@@ -16,7 +16,7 @@
 }
 
 .steps_container .cards_container {
-    background-image: url(../assets/bg_stars.svg);
+    background-image: url(../../assets/bg_stars.svg);
     background-position: center;
     height: 300px;
     width: 100%;

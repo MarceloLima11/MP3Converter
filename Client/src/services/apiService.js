@@ -12,8 +12,8 @@ const ApiService = {
             });
             return response.data;
         } catch (err) {
-            console.error("ERROR: ", err);
-            throw new Error('Error');
+            console.error("ERROR: ", err.response.data);
+            throw err;
         }
     }
 };
