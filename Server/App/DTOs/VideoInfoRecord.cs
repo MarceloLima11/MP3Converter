@@ -1,5 +1,5 @@
 ﻿namespace App.DTOs
 {
-    public record VideoInfoRecord(string Name, string? Thumb)
+    public record VideoInfoRecord(string Name, string? Thumb, string[] Sizes)
     { }
 }

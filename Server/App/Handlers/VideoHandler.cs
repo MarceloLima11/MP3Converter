@@ -1,10 +1,6 @@
 ﻿using App.DTOs;
-using Common;
 using System.Diagnostics;
 using YoutubeExplode;
-using YoutubeExplode.Converter;
-using YoutubeExplode.Videos;
-using YoutubeExplode.Videos.Streams;
 
 namespace App.Handlers
 {
@@ -15,11 +11,22 @@ namespace App.Handlers
 
         public async Task<VideoInfoRecord> GetVideoInfo(string link)
         {
+            string[] streamSizes = new string[4];
             var youtube = new YoutubeClient();
             try
             {
                 var video = await youtube.Videos.GetAsync(link);
-                var videoInfo = new VideoInfoRecord(video.Title, video.Thumbnails[0].Url);
+
+                var streamManifest = await youtube.Videos.Streams.GetManifestAsync(link);
+                var audioStreams = streamManifest.GetAudioStreams()
+                    .Where(x => x.Bitrate.BitsPerSecond > 64000).OrderBy(x => x.Bitrate.BitsPerSecond);
+
+                for (int index = 0; index < audioStreams.Count(); index++)
+                {
+                    streamSizes[index] = audioStreams.ToList()[index].Size;
+                }
+
+                var videoInfo = new VideoInfoRecord(video.Title, video.Thumbnails[0].Url, streamSizes);
 
                 return videoInfo;
             }
@@ -32,29 +39,27 @@ namespace App.Handlers
             var youtube = new YoutubeClient();
             try
             {
-                var videoInfo = await youtube.Videos.GetAsync(videoLink);
-                var streamManifest = await youtube.Videos.Streams.GetManifestAsync(videoLink);
+                //var videoInfo = await youtube.Videos.GetAsync(videoLink);
+                //var streamManifest = await youtube.Videos.Streams.GetManifestAsync(videoLink); 
 
-                #region
-                var audioStreamTestList = streamManifest.GetAudioStreams();
-                foreach (var audioStreamTest in audioStreamTestList)
-                {
-                    Debug.WriteLine($"Formato: {audioStreamTest.AudioCodec} | Bitrate: {audioStreamTest.Bitrate}bps");
-                }
-                #endregion 
+                //var audioStreams = streamManifest.GetAudioStreams()
+                //    ?? throw new Exception("Audio stream not found");
 
+                //foreach(var audioStream in audioStreams)
+                //{
+                //    Debug.WriteLine(audioStream.Size);
+                //    Debug.WriteLine(audioStream.AudioCodec);
+                //    Debug.WriteLine(audioStream.Bitrate);
+                //}
 
-                var audioStream = streamManifest.GetAudioStreams().GetWithHighestBitrate()
-                    ?? throw new Exception("Audio stream not found");
+                //var streamInfos = new IStreamInfo[] { audioStream };
+                //var conversionRequest = new ConversionRequestBuilder($"{Consts.SAVE_FILES_PATH}{videoInfo.Title}.mp3")
+                //    .SetPreset(ConversionPreset.UltraFast)
+                //    .SetFFmpegPath(Consts.FFMPEG_PATH)
+                //    .Build();
 
-                var streamInfos = new IStreamInfo[] { audioStream };
-                var conversionRequest = new ConversionRequestBuilder($"{Consts.SAVE_FILES_PATH}{videoInfo.Title}.mp3")
-                    .SetPreset(ConversionPreset.UltraFast)
-                    .SetFFmpegPath(Consts.FFMPEG_PATH)
-                    .Build();
-
-                    await youtube.Videos.DownloadAsync(streamInfos, conversionRequest);
-                    return conversionRequest.OutputFilePath;
+                //await youtube.Videos.DownloadAsync(streamInfos, conversionRequest);
+                return "string";
             }
             catch
             { throw; }
