@@ -66,28 +66,6 @@
     border-radius: 0 5px 5px 0;
 }
 
-#videoInfo {
-    display: flex;
-    width: 696px;
-    height: 50%;
-    margin-top: 10px;
-    background-color: white;
-    border-radius: 6px;
-}
-
-#videoInfo div {
-    padding: 1.25rem;
-    width: 50%;
-}
-
-#videoInfo img {
-    border-radius: 6px;
-}
-
-#videoInfo p {
-    font-size: 1rem;
-}
-
 #error {
     width: 676px;
     background-color: #FFCDD2;

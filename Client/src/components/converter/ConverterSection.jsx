@@ -2,6 +2,7 @@ import { useState } from 'react';
 import './ConverterSection.style.css';
 
 import apiService from '../../services/apiService.js';
+import VideoInfo from '../info/VideoInfo.jsx'
 
 function ConverterSection() {
     const [loading, setLoading] = useState(false);
@@ -40,11 +41,7 @@ function ConverterSection() {
 
             {data.name && data.thumb &&
                 (
-                    <div id='videoInfo'><img src={data.thumb}></img>
-                        <div>
-                            <p>{data.name}</p>
-                        </div>
-                    </div>
+                    <VideoInfo {...data} />
                 )}
             {err && <div id="error"><b>{err}</b></div>}
         </div>
