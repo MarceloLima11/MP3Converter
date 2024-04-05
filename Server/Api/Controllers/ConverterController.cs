@@ -11,12 +11,12 @@ namespace Api.Controllers
         public ConverterController(VideoHandler videoHandler)
         { _videoHandler = videoHandler; }
 
-        [HttpGet()]
-        public async Task<IActionResult> ConverterVideo(string videoLink)
+        [HttpGet]
+        public async Task<IActionResult> ConverterVideo(string videoUrl, string size)
         {
             try
             {
-                var filePath = await _videoHandler.GetAudioStream(videoLink);
+                var filePath = await _videoHandler.GetAudioStream(videoUrl, size);
 
                 var fileBytes = await System.IO.File.ReadAllBytesAsync(filePath);
                 var fileStream = new MemoryStream(fileBytes);

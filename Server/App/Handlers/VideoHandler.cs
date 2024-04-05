@@ -1,6 +1,5 @@
 ﻿using App.DTOs;
 using Common;
-using System.Diagnostics;
 using YoutubeExplode;
 using YoutubeExplode.Converter;
 using YoutubeExplode.Videos.Streams;
@@ -22,9 +21,9 @@ namespace App.Handlers
 
                 var streamManifest = await youtube.Videos.Streams.GetManifestAsync(link);
                 var audioStreams = streamManifest.GetAudioStreams()
-                    .Where(x => x.Bitrate.BitsPerSecond > 64000).OrderByDescending(x => x.Bitrate.BitsPerSecond);
+                    .Where(x => x.Bitrate.BitsPerSecond > 55000).OrderByDescending(x => x.Bitrate.BitsPerSecond);
 
-                for (int index = 0; index < audioStreams.Count(); index++)
+                for (int index = 0; index <= 4; index++)
                 {
                     streamSizes[index] = audioStreams.ToList()[index].Size.ToString();
                 }
@@ -37,15 +36,15 @@ namespace App.Handlers
             { throw; }
         }
 
-        public async Task<string> GetAudioStream(string videoLink)
+        public async Task<string> GetAudioStream(string videoUrl, string size)
         {
             var youtube = new YoutubeClient();
             try
             {
-                var videoInfo = await youtube.Videos.GetAsync(videoLink);
-                var streamManifest = await youtube.Videos.Streams.GetManifestAsync(videoLink);
+                var videoInfo = await youtube.Videos.GetAsync(videoUrl);
+                var streamManifest = await youtube.Videos.Streams.GetManifestAsync(videoUrl);
 
-                var audioStream = streamManifest.GetAudioStreams().GetWithHighestBitrate();
+                var audioStream = streamManifest.GetAudioStreams().FirstOrDefault(opt => opt.Size.ToString() == size);
 
                 var streamInfos = new IStreamInfo[] { audioStream };
                 var conversionRequest = new ConversionRequestBuilder($"{Consts.SAVE_FILES_PATH}{videoInfo.Title}.mp3")

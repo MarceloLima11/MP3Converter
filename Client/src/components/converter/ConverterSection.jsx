@@ -41,7 +41,7 @@ function ConverterSection() {
 
             {data.name && data.thumb &&
                 (
-                    <VideoInfo {...data} />
+                    <VideoInfo {...data} link={videoUrl} />
                 )}
             {err && <div id="error"><b>{err}</b></div>}
         </div>

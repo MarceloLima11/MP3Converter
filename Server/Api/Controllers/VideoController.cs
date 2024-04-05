@@ -17,7 +17,7 @@ namespace Api.Controllers
         {
             try
             {
-                var result = await _videoHandler.GetVideoInfo(videoLink);
+                var result = await _videoHandler.GetVideoInfo(videoLink.Trim());
                 return Ok(result);
             }
             catch (Exception err)
