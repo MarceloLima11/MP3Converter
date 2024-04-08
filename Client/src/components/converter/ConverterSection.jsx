@@ -1,6 +1,8 @@
 import { useState } from 'react';
 import './ConverterSection.style.css';
 
+import CircularProgress from '@mui/material/CircularProgress';
+
 import apiService from '../../services/apiService.js';
 import VideoInfo from '../info/VideoInfo.jsx'
 
@@ -9,6 +11,11 @@ function ConverterSection() {
     const [videoUrl, setVideoUrl] = useState('');
     const [data, setData] = useState({});
     const [err, setErr] = useState(null);
+
+    const [progress, setProgress] = useState(0);
+    setTimeout(() => {
+        setProgress(50);
+    }, 1000);
 
     const handleVideoInfo = async () => {
         setLoading(true);
@@ -34,15 +41,24 @@ function ConverterSection() {
                     onChange={(e) => setVideoUrl(e.target.value)}
                     value={videoUrl}
                     placeholder='https://www.youtube.com/watch?v=zXHvpBd3qNc'
-                    required />
+                    required
+                    disabled={loading}
+                />
                 <button onClick={handleVideoInfo} disabled={loading}></button>
 
             </div>
 
-            {data.name && data.thumb &&
+            {loading &&
+                <div id='loading_info'>
+                    <CircularProgress />
+                </div>
+            }
+
+            {!loading && data.name && data.thumb &&
                 (
                     <VideoInfo {...data} link={videoUrl} />
                 )}
+
             {err && <div id="error"><b>{err}</b></div>}
         </div>
     );

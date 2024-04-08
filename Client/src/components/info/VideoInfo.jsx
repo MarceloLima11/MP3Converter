@@ -1,23 +1,30 @@
 import { useState } from 'react';
 import './VideoInfo.style.css';
 
+import Box from '@mui/material/Box';
+import LinearProgress from '@mui/material/LinearProgress';
+
 import stringService from '../../services/stringService';
 import apiService from '../../services/apiService.js';
 
 function VideoInfo({ name, thumb, sizes, link }) {
+    const [loading, setLoading] = useState(false);
     const [data, setData] = useState({});
 
     const handleSelect = async (e) => {
+        setLoading(true);
         try {
             setData(await apiService.converterVideo(link, e.target.value));
         } catch (err) {
             setData({});
         }
+        setLoading(false);
     }
 
     return (
-        <div id='videoInfo'><img src={thumb}></img>
-            <div>
+        <div id='videoInfo'>
+            <img src={thumb}></img>
+            <div className='videoInfo_container'>
                 <p>{name}</p>
 
                 <select className='custom_select' id="sizes" onChange={handleSelect}>
@@ -36,6 +43,13 @@ function VideoInfo({ name, thumb, sizes, link }) {
                             ({stringService.removeWhiteSpace(sizes[4])})</option>
                     </optgroup>
                 </select>
+
+                {loading &&
+
+                    <Box sx={{ width: '100%' }}>
+                        <LinearProgress />
+                    </ Box>
+                }
             </div>
         </div>
     );

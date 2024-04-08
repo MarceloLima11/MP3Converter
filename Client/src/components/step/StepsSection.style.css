@@ -86,8 +86,7 @@
     }
 
     .cards_container .card {
-        width: 70%;
-
+        min-width: 50% !important;
         text-align: left;
     }
 }

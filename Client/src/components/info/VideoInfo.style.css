@@ -7,7 +7,7 @@
     border-radius: 6px;
 }
 
-#videoInfo div {
+#videoInfo .videoInfo_container {
     padding: 1.25rem;
     width: 50%;
 }
@@ -31,4 +31,19 @@
 
 #videoInfo .custom_select:focus {
     outline: none;
+}
+
+
+@media screen and (max-width: 768px) {
+    #videoInfo {
+        flex-direction: column;
+
+        width: 90%;
+    }
+
+    #videoInfo .videoInfo_container {
+        width: 80%;
+        margin: 0 auto;
+    }
+
 }
