@@ -1,6 +1,8 @@
 ﻿using App.DTOs;
 using Common;
+using System.Diagnostics;
 using YoutubeExplode;
+using YoutubeExplode.Common;
 using YoutubeExplode.Converter;
 using YoutubeExplode.Videos.Streams;
 
@@ -28,7 +30,9 @@ namespace App.Handlers
                     streamSizes[index] = audioStreams.ToList()[index].Size.ToString();
                 }
 
-                var videoInfo = new VideoInfoRecord(video.Title, video.Thumbnails[0].Url, streamSizes);
+                string highQualityThumbUrl = video.Thumbnails.GetWithHighestResolution().Url;
+
+                var videoInfo = new VideoInfoRecord(video.Title, highQualityThumbUrl, streamSizes);
 
                 return videoInfo;
             }
