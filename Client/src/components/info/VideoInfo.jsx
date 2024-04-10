@@ -21,6 +21,16 @@ function VideoInfo({ name, thumb, sizes, link }) {
         setLoading(false);
     }
 
+    const handleDownload = async () => {
+        if (data && data.url) {
+            const link = document.querySelector("#download_button");
+            link.href = data.url;
+            link.setAttribute('download', `${name}.mp3`);
+        } else {
+            console.error('Não há arquivo para download');
+        }
+    }
+
     return (
         <div id='videoInfo'>
             <img src={thumb}></img>
@@ -47,8 +57,14 @@ function VideoInfo({ name, thumb, sizes, link }) {
                 {loading &&
 
                     <Box sx={{ width: '100%' }}>
-                        <LinearProgress />
+                        <LinearProgress color='inherit' />
                     </ Box>
+                }
+
+                {!loading && data &&
+                    <a id='download_button' onClick={handleDownload}>
+                        Download
+                    </a>
                 }
             </div>
         </div>

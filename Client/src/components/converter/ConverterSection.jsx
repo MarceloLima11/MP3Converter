@@ -12,12 +12,12 @@ function ConverterSection() {
     const [data, setData] = useState({});
     const [err, setErr] = useState(null);
 
-    const [progress, setProgress] = useState(0);
-    setTimeout(() => {
-        setProgress(50);
-    }, 1000);
-
     const handleVideoInfo = async () => {
+        if (videoUrl === '') {
+            setErr("Enter a valid URL!");
+            return;
+        }
+
         setLoading(true);
         try {
             setErr(null);
