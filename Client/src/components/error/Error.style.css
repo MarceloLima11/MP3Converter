@@ -1,0 +1,18 @@
+#error {
+    width: 676px;
+    background-color: #FFCDD2;
+    padding: 10px;
+    border-radius: 5px;
+    margin-top: 10px;
+    text-align: center;
+}
+
+#error b {
+    color: #5e5e5e;
+}
+
+@media screen and (max-width: 768px) {
+    #error {
+        width: 84%;
+    }
+}

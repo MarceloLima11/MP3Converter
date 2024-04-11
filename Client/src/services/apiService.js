@@ -23,9 +23,14 @@ const ApiService = {
                 params: {
                     videoUrl: videoUrl,
                     Size: size
-                }
+                },
+                responseType: 'blob'
             });
-            return response.data;
+
+            const blob = new Blob([response.data], { type: 'audio/mpeg' });
+            const url = window.URL.createObjectURL(blob);
+
+            return url;
         } catch (err) {
             console.error("ERROR: ", err.response.data);
             throw err;

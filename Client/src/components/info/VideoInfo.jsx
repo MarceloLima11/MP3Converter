@@ -9,7 +9,7 @@ import apiService from '../../services/apiService.js';
 
 function VideoInfo({ name, thumb, sizes, link }) {
     const [loading, setLoading] = useState(false);
-    const [data, setData] = useState({});
+    const [data, setData] = useState('');
 
     const handleSelect = async (e) => {
         setLoading(true);
@@ -17,23 +17,25 @@ function VideoInfo({ name, thumb, sizes, link }) {
             setData(await apiService.converterVideo(link, e.target.value));
         } catch (err) {
             setData({});
+        } finally {
+            setLoading(false);
         }
-        setLoading(false);
     }
 
     const handleDownload = async () => {
-        if (data && data.url) {
-            const link = document.querySelector("#download_button");
-            link.href = data.url;
-            link.setAttribute('download', `${name}.mp3`);
-        } else {
+        if (!data) {
             console.error('Não há arquivo para download');
+            return;
         }
+
+        const linkElement = document.querySelector("#download_button");
+        linkElement.href = data;
+        linkElement.setAttribute('download', `${name}.mp3`);
     }
 
     return (
-        <div id='videoInfo'>
-            <img src={thumb}></img>
+        <div id='videoInfo' className='video-info'>
+            <img src={thumb} alt="Thumbnail" />
             <div className='videoInfo_container'>
                 <p>{name}</p>
 
@@ -41,24 +43,18 @@ function VideoInfo({ name, thumb, sizes, link }) {
                     <option>Choose the format...</option>
 
                     <optgroup label='MP3 (Audio)'>
-                        <option value={sizes[0]}>320k
-                            ({stringService.removeWhiteSpace(sizes[0])})</option>
-                        <option value={sizes[1]}>256k
-                            ({stringService.removeWhiteSpace(sizes[1])})</option>
-                        <option value={sizes[2]}>192k
-                            ({stringService.removeWhiteSpace(sizes[2])})</option>
-                        <option value={sizes[3]}>128k
-                            ({stringService.removeWhiteSpace(sizes[3])})</option>
-                        <option value={sizes[4]}>64k
-                            ({stringService.removeWhiteSpace(sizes[4])})</option>
+                        {sizes.map((size, index) => (
+                            <option key={index} value={size}>
+                                {`${size}k (${stringService.removeWhiteSpace(size)})`}
+                            </option>
+                        ))}
                     </optgroup>
                 </select>
 
                 {loading &&
-
                     <Box sx={{ width: '100%' }}>
                         <LinearProgress color='inherit' />
-                    </ Box>
+                    </Box>
                 }
 
                 {!loading && data &&

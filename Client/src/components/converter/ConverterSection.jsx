@@ -4,27 +4,28 @@ import './ConverterSection.style.css';
 import CircularProgress from '@mui/material/CircularProgress';
 
 import apiService from '../../services/apiService.js';
-import VideoInfo from '../info/VideoInfo.jsx'
+import VideoInfo from '../info/VideoInfo.jsx';
+import Error from '../error/Error.jsx';
 
 function ConverterSection() {
     const [loading, setLoading] = useState(false);
     const [videoUrl, setVideoUrl] = useState('');
     const [data, setData] = useState({});
-    const [err, setErr] = useState(null);
+    const [error, setError] = useState('');
 
     const handleVideoInfo = async () => {
-        if (videoUrl === '') {
-            setErr("Enter a valid URL!");
+        if (videoUrl.trim() === '') {
+            setError("Enter a valid URL!");
             return;
         }
 
         setLoading(true);
         try {
-            setErr(null);
+            setError('');
             setData(await apiService.getVideoInfo(videoUrl));
         } catch (err) {
             setData({});
-            setErr(err.response.data);
+            setError(err.response?.data || 'An error occurred');
         }
         setLoading(false);
     }
@@ -54,12 +55,11 @@ function ConverterSection() {
                 </div>
             }
 
-            {!loading && data.name && data.thumb &&
-                (
-                    <VideoInfo {...data} link={videoUrl} />
-                )}
+            {!loading && !error && data.name && data.thumb &&
+                <VideoInfo {...data} link={videoUrl} />
+            }
 
-            {err && <div id="error"><b>{err}</b></div>}
+            {error && <Error message={error} />}
         </div>
     );
 }

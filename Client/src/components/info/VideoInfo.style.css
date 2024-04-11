@@ -55,8 +55,9 @@
 @media screen and (max-width: 768px) {
     #videoInfo {
         flex-direction: column;
-
         width: 90%;
+        margin-right: auto;
+        margin-left: auto;
     }
 
     #videoInfo .videoInfo_container {
