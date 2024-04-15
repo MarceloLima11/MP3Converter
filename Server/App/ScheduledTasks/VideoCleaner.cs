@@ -3,7 +3,7 @@ using System.Diagnostics;
 
 namespace App.ScheduledTasks
 {
-    internal class VideoCleaner 
+    internal class VideoCleaner
     {
         public VideoCleaner()
         { }
@@ -12,6 +12,10 @@ namespace App.ScheduledTasks
         {
             try
             {
+                if (!Directory.Exists(Consts.SAVE_FILES_PATH))
+                    Directory.CreateDirectory(Consts.SAVE_FILES_PATH);
+
+
                 var files = Directory.GetFiles(Consts.SAVE_FILES_PATH);
 
                 foreach (var filePath in files)
@@ -22,7 +26,7 @@ namespace App.ScheduledTasks
                         File.Delete(filePath);
                 }
             }
-            catch 
+            catch
             { throw; }
         }
     }
