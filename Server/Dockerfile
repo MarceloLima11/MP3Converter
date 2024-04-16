@@ -1,16 +1,18 @@
+# Etapa de construção
 FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build-env
-EXPOSE 80
-WORKDIR /src
+WORKDIR /app
 
 COPY *.csproj ./
-RUN for file in $(ls *.csproj); do dotnet restore $file; done
+RUN dotnet restore
 
 COPY . ./
 RUN dotnet publish -c Release -o out
 
-FROM mcr.microsoft.com/dotnet/aspnet:8.0
-WORKDIR /src
+FROM mcr.microsoft.com/dotnet/aspnet:8.0 AS runtime
+WORKDIR /app
 
-COPY --from=build-env /src/out .
+COPY --from=build-env /app/out ./
+
+EXPOSE 80
 
 ENTRYPOINT ["dotnet", "Api.dll"]
